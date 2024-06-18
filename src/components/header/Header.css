@@ -1,0 +1,38 @@
+#upper-header-container, #header-user-information{
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#upper-header-container{
+    border: 2px solid red;
+    height: 150px;
+}
+
+#header-user-information{
+    border: 2px solid green;
+    margin: 50px;
+    width: 300px;
+    padding: 20px;
+}
+
+#logo, #avatar{
+    height: 50px;
+}
+
+#logo{
+    margin: 50px;
+}
+
+header{
+position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+}
