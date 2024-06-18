@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import {LogOut} from "../logOut/LogOut";
 import {LogIn} from "../logIn/LogIn";
+import { useState } from 'react'
 import './Header.css';
 
-export function Header({loggedIn,setLoggedIn,user,setUser,avatar}) {
+export function Header({loggedIn,setLoggedIn,user,setUser}) {
+  const [avatar,setAvatar] = useState('src/assets/profile.png');
     return (
       <header>
           <ul id='upper-header-container'>

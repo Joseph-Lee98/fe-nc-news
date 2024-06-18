@@ -1,4 +1,4 @@
-#article-layout{
+#articles-layout{
     display: grid;
     grid-template-columns: 1fr 3fr;
     margin-top: 200px;

@@ -1,5 +1,17 @@
 import axios from "axios";
 
-export const NCNewsApi = axios.create({
+const NCNewsApi = axios.create({
   baseURL: "https://be-nc-news-d1cb.onrender.com/api",
 });
+
+export function fetchArticleById (articleId){
+  return NCNewsApi.get(`/articles/${articleId}`);
+}
+  
+export function fetchCommentsById (articleId){
+  return NCNewsApi.get(`/articles/${articleId}/comments`);
+}
+
+export function fetchArticles (){
+  return NCNewsApi.get('/articles')
+} 
