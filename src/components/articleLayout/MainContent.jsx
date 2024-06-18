@@ -1,4 +1,6 @@
-export function MainContent({articles,isLoading}){
+import { Link } from "react-router-dom";
+
+export function MainContent({articles,isLoading,setArticleId}){
     if (isLoading) {
         return <p>Loading articles...</p>;
       }
@@ -6,6 +8,10 @@ export function MainContent({articles,isLoading}){
       if (articles.length === 0) {
         return <p>No articles available at the moment.</p>;
       }
+
+      const handleArticleClick = (articleId) => {
+        setArticleId(articleId);
+    };
     return (
         <>
             {articles.map((article)=>(
@@ -16,7 +22,9 @@ export function MainContent({articles,isLoading}){
                     <p>Author: {article.author}, Topic: {article.topic}</p>
                     <p>Date created: {article.created_at}, Votes: {article.votes}</p>
                     <p>Number of Comments: {article.comment_count}</p>
-                    <p>Link to full article</p>
+                    <Link to='/articlePage'>
+                        <p onClick={() => handleArticleClick(article.article_id)}>Link to full article</p>
+                    </Link>
                 </section>
             </div>
     ))}
