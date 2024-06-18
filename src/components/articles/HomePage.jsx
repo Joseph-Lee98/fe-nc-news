@@ -5,9 +5,8 @@ import {HomepageSidebar} from '../sidebar/HomepageSidebar';
 import {MainContent} from '../articleLayout/MainContent';
 
 
-export function HomePage(){
+export function HomePage({setArticleId,isLoading,setIsLoading}){
         const [articles, setArticles] = useState([]);
-        const [isLoading, setIsLoading] = useState(true);
 
         useEffect(() => {
             NCNewsApi.get('/articles')
@@ -24,7 +23,7 @@ export function HomePage(){
         return (
             <ArticleLayout
             SidebarContent={<HomepageSidebar />}
-            MainContent={<MainContent articles={articles} isLoading={isLoading}/>}
+            MainContent={<MainContent articles={articles} isLoading={isLoading} setArticleId={setArticleId}/>}
             />
         );
     
