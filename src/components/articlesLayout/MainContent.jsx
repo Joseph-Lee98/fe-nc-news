@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
-export function MainContent({articles,isLoading,setArticleId}){
+export function MainContent({articles,isLoading}){
+    const navigate = useNavigate();
     if (isLoading) {
         return <p>Loading articles...</p>;
       }
@@ -10,7 +12,7 @@ export function MainContent({articles,isLoading,setArticleId}){
       }
 
       const handleArticleClick = (articleId) => {
-        setArticleId(articleId);
+        navigate(`/articles/${articleId}`)
     };
     return (
         <>
@@ -22,9 +24,7 @@ export function MainContent({articles,isLoading,setArticleId}){
                     <p>Author: {article.author}, Topic: {article.topic}</p>
                     <p>Date created: {article.created_at}, Votes: {article.votes}</p>
                     <p>Number of Comments: {article.comment_count}</p>
-                    <Link to='/articlePage'>
-                        <p onClick={() => handleArticleClick(article.article_id)}>Link to full article</p>
-                    </Link>
+                    <p onClick={() => handleArticleClick(article.article_id)}>Link to full article</p>
                 </section>
             </div>
     ))}

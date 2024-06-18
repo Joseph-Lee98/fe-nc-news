@@ -1,17 +1,29 @@
 import './ArticlePage.css';
 import { useEffect,useState} from 'react';
-import { NCNewsApi } from "../../utils/api";
+import { useParams } from 'react-router-dom';
 import {Article} from "./Article";
+import { Comments } from '../comments/Comments';
+import { fetchArticleById,fetchCommentsById } from '../../utils/api';
 
-export function ArticlePage({articleId,setIsLoading,isLoading}){
+export function ArticlePage({setIsLoading,isLoading}){
 
     const [article,setArticle] = useState({});
+    const [comments,setComments] = useState([]);
 
+    const {articleId} = useParams();
     useEffect(() => {
         setIsLoading(true);
-        NCNewsApi.get(`/articles/${articleId}`)
+        fetchArticleById(articleId)
             .then(response => {
                 setArticle(response.data.article);
+            })
+            .then(()=>{
+                return fetchCommentsById(articleId)
+            })
+            .then(response => {
+                setComments(response.data.comments)
+            })
+            .then(()=>{
                 setIsLoading(false);
             })
             .catch(error => {
@@ -19,14 +31,14 @@ export function ArticlePage({articleId,setIsLoading,isLoading}){
                 setIsLoading(false);
             });
             
-    }, [articleId, setIsLoading]);
+    }, []);
     return (
         <div id='article-container'>
             <article id="full-article">
                 <Article article={article} isLoading={isLoading}/>
             </article>
             <section id="comments">
-                <p>comments...</p>
+                <Comments comments={comments} isLoading={isLoading}/>
             </section>
         </div>
     )

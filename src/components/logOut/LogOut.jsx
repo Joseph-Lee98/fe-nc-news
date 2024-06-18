@@ -1,4 +1,3 @@
-import { useState } from "react";
 
 export function LogOut({setLoggedIn,setUser}){
     const handleLogOut = ()=>{

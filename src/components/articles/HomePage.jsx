@@ -1,15 +1,15 @@
-import { ArticleLayout } from "../articleLayout/ArticleLayout";
+import { ArticlesLayout } from "../articlesLayout/ArticlesLayout";
 import { useEffect, useState } from 'react';
-import { NCNewsApi } from "../../utils/api";
 import {HomepageSidebar} from '../sidebar/HomepageSidebar';
-import {MainContent} from '../articleLayout/MainContent';
+import {MainContent} from '../articlesLayout/MainContent';
+import { fetchArticles } from "../../utils/api";
 
 
-export function HomePage({setArticleId,isLoading,setIsLoading}){
+export function HomePage({isLoading,setIsLoading}){
         const [articles, setArticles] = useState([]);
 
         useEffect(() => {
-            NCNewsApi.get('/articles')
+            fetchArticles()
                 .then(response => {
                     setArticles(response.data.articles);
                     setIsLoading(false);
@@ -21,9 +21,9 @@ export function HomePage({setArticleId,isLoading,setIsLoading}){
         }, []);
 
         return (
-            <ArticleLayout
+            <ArticlesLayout
             SidebarContent={<HomepageSidebar />}
-            MainContent={<MainContent articles={articles} isLoading={isLoading} setArticleId={setArticleId}/>}
+            MainContent={<MainContent articles={articles} isLoading={isLoading} />}
             />
         );
     
