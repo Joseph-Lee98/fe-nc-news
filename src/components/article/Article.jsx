@@ -1,4 +1,10 @@
-export function Article ({article,isLoading}){
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import './Article.css'
+import { useState } from 'react';
+import { updateArticleById } from '../../utils/api';
+
+export function Article ({article,setArticle,isLoading}){
     if (isLoading) {
         return <p>Loading article...</p>;
       }
@@ -6,8 +12,77 @@ export function Article ({article,isLoading}){
       if (Object.keys(article).length === 0) {
         return <p>No such article available at the moment.</p>;
       }
+
+      const [err,setErr] = useState(null)
+      const [liked,setLiked] = useState(false)
+      const [disliked,setDisliked] = useState(false)
+
+      const handleLikeButton = ()=>{
+        if(disliked) return;
+        if(!liked){
+            const copyArticle = {...article};
+            copyArticle.votes++;
+            setArticle(copyArticle)
+            setLiked(true)
+            setErr(null);
+            updateArticleById(article.article_id,1).catch((error)=>{
+                const copyArticle = {...article};
+                copyArticle.votes--;
+                setArticle(copyArticle);
+                setLiked(false)
+                setErr('Something went wrong, please try again.')
+            })
+        }
+        if(liked){
+            const copyArticle = {...article};
+            copyArticle.votes--;
+            setArticle(copyArticle)
+            setLiked(false)
+            setErr(null);
+            updateArticleById(article.article_id,-1).catch((error)=>{
+                const copyArticle = {...article};
+                copyArticle.votes++;
+                setArticle(copyArticle);
+                setLiked(true)
+                setErr('Something went wrong, please try again.')
+            })
+        }
+      }
+
+      const handleDislikeButton = ()=>{
+        if(liked) return;
+        if(!disliked){
+            const copyArticle = {...article};
+            copyArticle.votes--;
+            setArticle(copyArticle)
+            setDisliked(true)
+            setErr(null);
+            updateArticleById(article.article_id,-1).catch((error)=>{
+                const copyArticle = {...article};
+                copyArticle.votes++;
+                setArticle(copyArticle);
+                setDisliked(false)
+                setErr('Something went wrong, please try again.')
+            })
+        }
+        if(disliked){
+            const copyArticle = {...article};
+            copyArticle.votes++;
+            setArticle(copyArticle);
+            setDisliked(false)
+            setErr(null);
+            updateArticleById(article.article_id,1).catch((error)=>{
+                const copyArticle = {...article};
+                copyArticle.votes--;
+                setArticle(copyArticle);
+                setDisliked(true)
+                setErr('Something went wrong, please try again.')
+            })
+        }
+      }
+
     return(
-        <div>
+        <div id='article-container'>
             <h2>{article.title}</h2>
             <img src={article.article_img_url}/>
             <p>{article.body}</p>
@@ -16,6 +91,11 @@ export function Article ({article,isLoading}){
                 <p>Date created: {article.created_at}, Votes: {article.votes}</p>
                 <p>Number of Comments: {article.comment_count}</p>
             </section>
+            <div id='article-buttons'>
+                <ThumbUpOffAltIcon onClick={handleLikeButton} className={`article-button ${liked ? 'like-btn-clicked' : '' }`}/>
+                <ThumbDownOffAltIcon onClick={handleDislikeButton} className={`article-button ${disliked ? 'dislike-btn-clicked' : ''}`}/>
+            </div>
+            {err ? <p>{err}</p> : null}
         </div>
     )
 }

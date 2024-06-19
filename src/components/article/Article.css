@@ -1,0 +1,18 @@
+#article-buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.article-button{
+    margin: 10px;
+}
+
+.like-btn-clicked{
+    color: blue
+}
+
+.dislike-btn-clicked{
+    color: red
+}

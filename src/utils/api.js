@@ -15,3 +15,7 @@ export function fetchCommentsById (articleId){
 export function fetchArticles (){
   return NCNewsApi.get('/articles')
 } 
+
+export function updateArticleById (articleId,inc_votes){
+  return NCNewsApi.patch(`/articles/${articleId}`,{inc_votes})
+}
