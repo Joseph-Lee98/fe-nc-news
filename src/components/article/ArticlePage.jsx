@@ -33,9 +33,9 @@ export function ArticlePage({setIsLoading,isLoading}){
             
     }, []);
     return (
-        <div id='article-container'>
+        <div id='article-page-container'>
             <article id="full-article">
-                <Article article={article} isLoading={isLoading}/>
+                <Article article={article} setArticle={setArticle} isLoading={isLoading}/>
             </article>
             <section id="comments">
                 <Comments comments={comments} isLoading={isLoading}/>
