@@ -3,19 +3,18 @@ import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import './Article.css'
 import { useState } from 'react';
 import { updateArticleById } from '../../utils/api';
+import { useNavigate } from 'react-router-dom';
 
-export function Article ({article,setArticle,isLoading}){
-    if (isLoading) {
-        return <p>Loading article...</p>;
-      }
-    
-      if (Object.keys(article).length === 0) {
-        return <p>No such article available at the moment.</p>;
-      }
+export function Article ({article,setArticle,isLoading,loggedIn,err,setErr}){
+    const navigate = useNavigate();
 
-      const [err,setErr] = useState(null)
+      
       const [liked,setLiked] = useState(false)
       const [disliked,setDisliked] = useState(false)
+
+      const handleCommentButton = ()=>{
+        navigate('/commentPage');
+      }
 
       const handleLikeButton = ()=>{
         if(disliked) return;
@@ -81,6 +80,14 @@ export function Article ({article,setArticle,isLoading}){
         }
       }
 
+      if (isLoading) {
+        return <p>Loading article...</p>;
+      }
+    
+      if (Object.keys(article).length === 0) {
+        return <p>No such article available at the moment.</p>;
+      }
+
     return(
         <div id='article-container'>
             <h2>{article.title}</h2>
@@ -94,6 +101,7 @@ export function Article ({article,setArticle,isLoading}){
             <div id='article-buttons'>
                 <ThumbUpOffAltIcon onClick={handleLikeButton} className={`article-button ${liked ? 'like-btn-clicked' : '' }`}/>
                 <ThumbDownOffAltIcon onClick={handleDislikeButton} className={`article-button ${disliked ? 'dislike-btn-clicked' : ''}`}/>
+                {loggedIn ? <button onClick={handleCommentButton}>Post a comment</button> : null}
             </div>
             {err ? <p>{err}</p> : null}
         </div>

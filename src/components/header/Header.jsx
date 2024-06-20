@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
 import {LogOut} from "../logOut/LogOut";
 import {LogIn} from "../logIn/LogIn";
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import './Header.css';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export function Header({loggedIn,setLoggedIn,user,setUser}) {
-  const [avatar,setAvatar] = useState('src/assets/profile.png');
+  // useEffect(()=>{
+  //   console.log('avatar is ', user.avatar_url)
+  // },[avatar])
     return (
       <header>
           <ul id='upper-header-container'>
@@ -23,10 +26,10 @@ export function Header({loggedIn,setLoggedIn,user,setUser}) {
                   {loggedIn ? <LogOut setLoggedIn={setLoggedIn} setUser={setUser}/> : <LogIn/>}
                 </li>
                 <li>
-                  <p>{user}</p>
+                  <p>{user.username}</p>
                 </li>
                 <li>
-                  <img id='avatar' src={avatar}/>
+                  {loggedIn ? <img id='avatar' src={user.avatar_url}/> : <AccountCircleIcon id="guest-icon"/>}
                 </li>
               </ul>
             </li>

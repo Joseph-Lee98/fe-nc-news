@@ -13,7 +13,7 @@ export function HomepageSidebar (){
     };
   
     return (
-      <div>
+      <form>
         <select value={selectedTopic} onChange={(e) => setSelectedTopic(e.target.value)}>
           <option value="">Select Topic</option>
           <option value="coding">Coding</option>
@@ -21,6 +21,6 @@ export function HomepageSidebar (){
           <option value="cooking">Cooking</option>
         </select>
         <button onClick={handleFilter}>Filter</button>
-      </div>
+      </form>
     );
   };

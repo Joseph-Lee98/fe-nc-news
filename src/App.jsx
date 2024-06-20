@@ -15,22 +15,24 @@ import {UserPage} from './components/user/UserPage';
 
 function App() {
   const [loggedIn,setLoggedIn] = useState(false);
-  const [user,setUser] = useState('Guest');
-  // const [articleId,setArticleId] = useState('');
-  const [topicQuery,setTopicQuery] = useState('');
-  const [comments,setComments] = useState([]);
+  const [user,setUser] = useState({username: 'Guest'});
+  const [articles, setArticles] = useState([]);
+  const [err,setErr] = useState(null)
+  // const [topicQuery,setTopicQuery] = useState('');
+  // const [comments,setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [article_Id, setArticle_Id] = useState(null);
   return (
     <BrowserRouter>
       <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} user={user} setUser={setUser} />
       <Routes>
-        <Route path="/" element={<HomePage isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
+        <Route path="/" element={<HomePage isLoading={isLoading} setIsLoading={setIsLoading} articles={articles} setArticles={setArticles}/>}/>
         <Route path="/codingArticles" element={<CodingPage />}/>
         <Route path="/footballArticles" element={<FootballPage />}/>
         <Route path="/cookingArticles" element={<CookingPage />}/>
-        <Route path="/articles/:articleId" element={<ArticlePage isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
-        <Route path="/commentPage" element={<CommentPage />}/>
-        <Route path="/userPage" element={<UserPage />}/>
+        <Route path="/articles/:articleId" element={<ArticlePage isLoading={isLoading} setIsLoading={setIsLoading} loggedIn={loggedIn} setArticle_Id={setArticle_Id} err={err} setErr={setErr}/>}/>
+        <Route path="/commentPage" element={<CommentPage articles={articles} setArticles={setArticles} article_Id={article_Id} user={user} err={err} setErr={setErr} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
+        <Route path="/userPage" element={<UserPage user={user} setUser={setUser} setLoggedIn={setLoggedIn} />}/>
       </Routes>
     </BrowserRouter>
   )
