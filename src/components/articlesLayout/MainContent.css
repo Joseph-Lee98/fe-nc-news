@@ -1,0 +1,37 @@
+.article-container {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .article-container h2 {
+    margin-bottom: 10px;
+  }
+  
+  .article-container img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .article-container section {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .article-container p {
+    margin: 5px 0;
+  }
+
+  .article-link {
+    color: #007bff; /* Blue color to make it stand out */
+    text-decoration: underline; /* Underline the link */
+    cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+  }
+  
+  .article-link:hover {
+    color: #0056b3; /* Darker blue on hover */
+  }
+  

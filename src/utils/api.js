@@ -19,3 +19,14 @@ export function fetchArticles (){
 export function updateArticleById (articleId,inc_votes){
   return NCNewsApi.patch(`/articles/${articleId}`,{inc_votes})
 }
+
+export function fetchUsers(){
+  return NCNewsApi.get('/users')
+}
+
+export function createComment (articleId,body,username){
+  return NCNewsApi.post(`/articles/${articleId}/comments`,{
+    body,
+    username
+  })
+}

@@ -5,12 +5,17 @@ import {Article} from "./Article";
 import { Comments } from '../comments/Comments';
 import { fetchArticleById,fetchCommentsById } from '../../utils/api';
 
-export function ArticlePage({setIsLoading,isLoading}){
+export function ArticlePage({setIsLoading,isLoading,loggedIn,setArticle_Id,err,setErr}){
 
     const [article,setArticle] = useState({});
     const [comments,setComments] = useState([]);
 
     const {articleId} = useParams();
+
+    useEffect(()=>{
+        setArticle_Id(articleId)
+    },[articleId])
+
     useEffect(() => {
         setIsLoading(true);
         fetchArticleById(articleId)
@@ -35,7 +40,7 @@ export function ArticlePage({setIsLoading,isLoading}){
     return (
         <div id='article-page-container'>
             <article id="full-article">
-                <Article article={article} setArticle={setArticle} isLoading={isLoading}/>
+                <Article article={article} setArticle={setArticle} isLoading={isLoading} loggedIn={loggedIn} err={err} setErr={setErr}/>
             </article>
             <section id="comments">
                 <Comments comments={comments} isLoading={isLoading}/>

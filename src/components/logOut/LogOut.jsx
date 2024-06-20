@@ -2,7 +2,7 @@
 export function LogOut({setLoggedIn,setUser}){
     const handleLogOut = ()=>{
         setLoggedIn(false);
-        setUser('Guest');
+        setUser({username: 'Guest'});
     }
     return (
         <p onClick = {handleLogOut}>Log Out</p>

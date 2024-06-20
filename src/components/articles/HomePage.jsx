@@ -5,8 +5,8 @@ import {MainContent} from '../articlesLayout/MainContent';
 import { fetchArticles } from "../../utils/api";
 
 
-export function HomePage({isLoading,setIsLoading}){
-        const [articles, setArticles] = useState([]);
+export function HomePage({isLoading,setIsLoading,articles,setArticles}){
+        
 
         useEffect(() => {
             fetchArticles()
