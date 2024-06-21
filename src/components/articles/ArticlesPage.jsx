@@ -30,7 +30,7 @@ export function ArticlesPage({ isLoading, setIsLoading, articles, setArticles })
 
     return (
         <div id="articles-layout">
-            <Sidebar topicSlug={topicSlug} setTopicSlug={(newTopic) => {
+            <Sidebar filteredArticles={filteredArticles} setFilteredArticles={setFilteredArticles} topicSlug={topicSlug} setTopicSlug={(newTopic) => {
                 navigate(`/${newTopic}`);
                 setTopicSlug(newTopic);
             }} />
