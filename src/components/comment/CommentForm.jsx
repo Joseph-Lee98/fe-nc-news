@@ -1,36 +1,47 @@
 import { useState } from "react";
 import { createComment } from "../../utils/api";
 import { NewComment } from "./NewComment";
-import './CommentPage.css';
+import './CommentForm.css';
 
-export function CommentPage({articles,setArticles,article_Id,user,err,setErr,isLoading,setIsLoading}){
-    const [comment,setComment] = useState({});
-    const [typedComment,setTypedComment] = useState('')
-    const handlePostComment = (e)=>{
+export function CommentForm({isLoading,setIsLoading,err,setErr,comments,setComments,articles,setArticles,article_Id,user}){
+    const [comment,setComment] = useState(null);
+    const [typedComment,setTypedComment] = useState('');
+
+    const handlePostComment =(e)=>{
         e.preventDefault();
         setIsLoading(true);
+        setErr(null);
         createComment(article_Id,typedComment,user.username)
         .then((response)=>{
             const index = articles.findIndex(article=>article.article_id===Number(article_Id))
             const copyArticles = JSON.parse(JSON.stringify(articles));
             copyArticles[index].comment_count = String(Number(copyArticles[index].comment_count) + 1);
             setArticles(copyArticles)
-            setComment(response.data.comment)
             setTypedComment('')
+            setComment(response.data.comment)
+            setComments([response.data.comment,...comments])
             setErr(null);
-            setIsLoading(false)
-        })
-        .catch(error=>{
-            const index = articles.findIndex(article=>article.article_id===article_Id)
-            const copyArticles = JSON.parse(JSON.stringify(articles));
-            copyArticles[index].comment_count = String(Number(copyArticles[index].comment_count) - 1);
-            setArticles(copyArticles);
-            setComment({})
-            setErr('Something went wrong, please try again.');
             setIsLoading(false);
         })
-        // 
+        .catch((error)=>{
+            const index = articles.findIndex(article=>article.article_id===Number(article_Id))
+            const copyArticles = JSON.parse(JSON.stringify(articles));
+            copyArticles[index].comment_count = String(Number(copyArticles[index].comment_count) -1);
+            setArticles(copyArticles)
+            setComment({})
+            const updatedComments = [...comments];
+            updatedComments.shift();
+            setComments(updatedComments);
+            setErr('Something went wrong, please try again.');
+            setIsLoading(false);
+            console.error(error);
+        })
     }
+
+    if (isLoading) {
+        return <p>Loading article/comments...</p>;
+    }
+
     return (
         <div id="comment-page-container">
             <section id="comment-form-container">
@@ -43,7 +54,11 @@ export function CommentPage({articles,setArticles,article_Id,user,err,setErr,isL
                     <button type='submit'>Post comment</button>
                 </form>
             </section>
-            {Object.keys(comment).length>0 ? <NewComment isLoading={isLoading} comment={comment}/>: <p>{err}</p>}
+           
+            {comment ? <NewComment comment={comment}/> : null}
+            {comment!==null&&err ? <p>{err}</p> : null}
         </div>
     )
+
+    
 }

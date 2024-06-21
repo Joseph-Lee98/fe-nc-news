@@ -9,7 +9,6 @@ import {CodingPage} from './components/articles/CodingPage';
 import {FootballPage} from './components/articles/FootballPage';
 import {CookingPage} from './components/articles/CookingPage';
 import {ArticlePage} from './components/article/ArticlePage';
-import {CommentPage} from './components/comment/CommentPage';
 import {UserPage} from './components/user/UserPage';
 
 
@@ -19,7 +18,6 @@ function App() {
   const [articles, setArticles] = useState([]);
   const [err,setErr] = useState(null)
   // const [topicQuery,setTopicQuery] = useState('');
-  // const [comments,setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [article_Id, setArticle_Id] = useState(null);
   return (
@@ -30,8 +28,7 @@ function App() {
         <Route path="/codingArticles" element={<CodingPage />}/>
         <Route path="/footballArticles" element={<FootballPage />}/>
         <Route path="/cookingArticles" element={<CookingPage />}/>
-        <Route path="/articles/:articleId" element={<ArticlePage isLoading={isLoading} setIsLoading={setIsLoading} loggedIn={loggedIn} setArticle_Id={setArticle_Id} err={err} setErr={setErr}/>}/>
-        <Route path="/commentPage" element={<CommentPage articles={articles} setArticles={setArticles} article_Id={article_Id} user={user} err={err} setErr={setErr} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
+        <Route path="/articles/:articleId" element={<ArticlePage isLoading={isLoading} setIsLoading={setIsLoading} loggedIn={loggedIn} setArticle_Id={setArticle_Id} err={err} setErr={setErr} articles={articles} setArticles={setArticles} article_Id={article_Id} user={user}/>}/>
         <Route path="/userPage" element={<UserPage user={user} setUser={setUser} setLoggedIn={setLoggedIn} />}/>
       </Routes>
     </BrowserRouter>

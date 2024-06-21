@@ -1,6 +1,6 @@
 #article-page-container{
         display: grid;
-        grid-template-rows: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
         margin-top: 200px;
         border: 2px solid blue;
 }
