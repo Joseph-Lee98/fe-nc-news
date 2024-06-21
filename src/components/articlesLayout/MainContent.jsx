@@ -2,13 +2,13 @@
 import { useNavigate } from 'react-router-dom';
 import './MainContent.css';
 
-export function MainContent({articles,isLoading}){
+export function MainContent({filteredArticles,isLoading}){
     const navigate = useNavigate();
     if (isLoading) {
         return <p>Loading articles...</p>;
       }
     
-      if (articles.length === 0) {
+      if (filteredArticles.length === 0) {
         return <p>No articles available at the moment.</p>;
       }
 
@@ -16,8 +16,8 @@ export function MainContent({articles,isLoading}){
         navigate(`/articles/${articleId}`)
     };
     return (
-        <div>
-            {articles.map((article)=>(
+        <div id="main">
+            {filteredArticles.map((article)=>(
             <div key={article.article_id} className="article-container">
                 <h2>{article.title}</h2>
                 <img src={article.article_img_url}/>
