@@ -9,6 +9,7 @@ export function HomePage({isLoading,setIsLoading,articles,setArticles}){
         
 
         useEffect(() => {
+            setIsLoading(true);
             fetchArticles()
                 .then(response => {
                     setArticles(response.data.articles);

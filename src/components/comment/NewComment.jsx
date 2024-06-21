@@ -1,7 +1,4 @@
-export function NewComment({isLoading,comment}){
-    if (isLoading) {
-        return <p>Loading your posted comment...</p>;
-      }
+export function NewComment({comment}){
     
     return (
         <div>

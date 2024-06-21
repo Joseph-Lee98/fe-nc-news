@@ -30,3 +30,7 @@ export function createComment (articleId,body,username){
     username
   })
 }
+
+export function deleteComment(comment_id){
+  return NCNewsApi.delete(`/comments/${comment_id}`)
+}
